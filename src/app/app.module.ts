@@ -35,8 +35,6 @@ import { NguiMapModule} from '@ngui/map';
     LoginComponent,
     LogoutComponent,
     HeaderComponent,
-   
-  
 
   ],
   providers: [AuthenticationService],

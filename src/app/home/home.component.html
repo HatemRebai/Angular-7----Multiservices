@@ -22,62 +22,32 @@
                       class="td-actions text-left">Tel</th>
                     <th style="color: rgb(100, 206, 156);font-size: 14px;font-weight: bold;"
                       class="td-actions text-left">Type</th>
-
-                    <th style="color: rgb(100, 206, 156);font-size: 14px;font-weight: bold;"
-                      class="td-actions text-left">Service</th>
-
-
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let ouvrier of ouvriers">
+                  <tr *ngFor="let ouvrier of ouvriers ">
 
                     <td>{{ouvrier.username}}</td>
                     <td>{{ouvrier.adresse}}</td>
                     <td>{{ouvrier.tel}}</td>
-
                     <td>{{ouvrier.typedouvrier}}</td>
-                    <td>{{ouvrier.services.titre}}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                 
                     <td>
                       <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
                         <i class="fa fa-edit"></i>
-                      </button>
+                      </button>&nbsp;
                       <button type="button" rel="tooltip" title="Remove" (click)="Delete(ouvrier)"
                         class="btn btn-danger btn-simple btn-xs">
                         <i class="fa fa-times"></i>
                       </button>
-
-
-                  
-
-
                     </td>
                   </tr>
-
                 </tbody>
               </table>
             </div>
-
           </div>
         </div>
       </div>
-
     </div>
     <div class="row">
 

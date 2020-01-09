@@ -1,11 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
-import { ServiiceService, Serviice } from './serviice.service';
-//import { ClientService, Client } from '../user/client.service';
+import { Component, OnInit } from '@angular/core';
+import { Services } from './serviice.service';
 import { OuvrierService, Ouvrier } from '../home/ouvrier.service';
-import * as jwt_decode from 'jwt-decode';
-import { ReserserviceService , Ouvrier } from './reserservice.service';
-import { OptionBuilder } from '@ngui/map';
+import { Reservation, ReservationService } from './reserservice.service';
+import { Client } from 'app/user/client.service';
+
 
 
 
@@ -16,64 +14,74 @@ import { OptionBuilder } from '@ngui/map';
 })
 export class ReserserviceComponent implements OnInit {
 
-  submitted = false;
-  success = false;
-  servicees: any;
-  servicess: Serviice[];
-  ouvrier:any;
-  ouvriers:Ouvrier[];
-  buttonDisabled: boolean
+submitted = false;
+success = false;
+ouvrier: Ouvrier[];
+reservation: Reservation[];
+services: Services[];
+initial: Reservation[];
+encours: Reservation[];
+terminer: Reservation[];
+client: Client[]
+ouvriers: any
+buttonDisabled: boolean [] = [];
 Activate: boolean
 selectedValue: String
-
-services: any
-message: any ;
-// public ouvriers = [{Nom: 'Ahmed'}, {Nom: 'foued'}, {Nom: 'nabil'}, {Nom: 'mohamed'}, {Nom: 'Ali'}]
-
 Option: ( defaultSelected?: false ) => HTMLOptionElement
 token: any;
 value: number;
 text: string;
 
- constructor(private serviceouvrier: OuvrierService,private service: ServiiceService) { }
+ constructor(private serviceouvrier: OuvrierService, private reservations: ReservationService) { }
 
   ngOnInit() {
+   this.listOuvrier();
+   this.listeInitial()
+   this.listeEncours()
+   this.listeTerminer()
 
-      this.service.getService().subscribe(data => {
-        this.servicess = data;
-        this.serviceouvrier.getOuvrier().subscribe( data => {
-          this.ouvriers = data;
+   }
+ listOuvrier() {
+  this.serviceouvrier.getAvailable().subscribe( res => {
+    this.ouvriers = res;
+  })
+ }
+ listeInitial() {
+  this.reservations.getInitial().subscribe(res => {
+    this.initial = res;
+   })
+ }
+ listeEncours() {
+  this.reservations.getencours().subscribe(res => {
+    this.encours = res;
+   })
+ }
+ listeTerminer() {
+  this.reservations.getterminer().subscribe(res => {
+    this.terminer = res;
+   })
+ }
+   set(id: number) {
+     const e = document.getElementById('select');
+     const option = e['options']
+     this.value = option[e['selectedIndex']].value;
+     // this.value = e.options[e.selectedIndex].value;
+
+    this.reservations.setEtatReservation(id).subscribe((data: any) => {
+    this.ouvriers = data ;
         })
-      })
-    }
- 
-//   constructor(private service: ReserserviceService) {}
-
-//   ngOnInit() {
-//   this.listOuvrier();
-//   this.listeClient();
-//   }
-// listOuvrier() {
-//   this.service.getOuvrier().subscribe(data => {
-//   this.ouvriers = data;
-//   })
-// }
-// listeClient() {
-//   this.service.getClt().subscribe(data => {
-//     this.services = data;
-//   })
-// }
-    
-  set(id) {
-    const e = document.getElementById('select');
-    this.value = e.options[e.selectedIndex].value;
-    this.service.SetAvailable(this.value).subscribe((res: any) => {
+    this.reservations.affectOuvrier(id, this.value).subscribe((res: any) => {
+    this.ouvriers = res ;
+       })
+    this.serviceouvrier.setAvailable(this.value).subscribe((res: any) => {
     this.ouvriers = res ;
     })
-}
+ }
    onChange(index: number) {
     const e = document.getElementById('select');
-    this.text = e.options[e.selectedIndex].text;
+    const option = e['options']
+    this.text = option[e['selectedIndex']].text;
+    // this.text = e.options[e.selectedIndex].text;
     if (Option && this.text !== '') {
      this.buttonDisabled[index] = true
     } else {
@@ -81,22 +89,31 @@ text: string;
     }
      return this.buttonDisabled[index];
      }
-    Delete(serv) {
-      this.service.deleteService(serv)
-        .subscribe(data => {
-          this.servicess = this.servicess.filter(p => p !== serv);
-          alert(" voulez vous supprimer ?");
-        })
-    }
-}
+    // Delete(serv) {
+    //   this.service.deleteService(serv)
+    //     .subscribe(data => {
+    //       this.services = this.services.filter(p => p !== serv);
+    //       alert(' voulez vous supprimer ?');
+    //     })
+    // }
   onbegin(index: number) {
-   this.services[index].etat_service = 'encours'
+   this.reservation[index].etat = 'encours'
    this.ouvriers[index].available = false;
    this.buttonDisabled[index] = false
    this.Activate = true
 }
-  onfinis(index: number) {
-  this.services[index].etat_service = 'finis'
-  this.buttonDisabled[index] = false
+  onfinis(id: number) {
+    this.reservations.setetatterminer(id).subscribe((res: any) =>  {
+      this.ouvriers = res;
+    })
+
+  // this.services[index].etat = 'terminer'
+  this.buttonDisabled[id] = false
 }
+setAvailable(id: number) {
+  this.serviceouvrier.setAvailable(id).subscribe((res: any) => {
+    this.ouvriers = res ;
+    })
+}
+
 }

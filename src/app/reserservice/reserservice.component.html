@@ -1,86 +1,168 @@
-<div class="main-content" > 
+<div class="container mt-3">
+    <h2>Reservation Services</h2>
+    <br>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#home">intial</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#menu1">encours</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#menu2">terminer</a>
+      </li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div id="home" class="container tab-pane active"><br>
+        <div class="main-content" > 
+            <div class="container-fluid" >
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <div class="card">
+                            <div class="content">
+                                <div class="table-full-width">
+                                    <table class="table table-hover">
+                                            <thead>
+                                              <tr>                                        
+                                                <th style="color: rgb(100, 206, 156);font-size: 14px;font-weight: bold;" class="td-actions text-left" >type</th>
+                                                <th style="color: rgb(100, 206, 156);font-size: 14px;font-weight: bold;"  class="td-actions text-left" >date debut</th>
+                                                <th style="color: rgb(100, 206, 156);font-size: 14px;font-weight: bold;" class="td-actions text-left" >etat</th>  
+                                                <th style="color: rgb(100, 206, 156);font-size: 14px;font-weight: bold;" class="td-actions text-left" >Nom Du Client</th>
+                                                <th style="color: rgb(100, 206, 156);font-size: 14px;font-weight: bold;"  class="td-actions text-left" >tel</th>
+                                                <th style="color: rgb(100, 206, 156);font-size: 14px;font-weight: bold;"  class="td-actions text-left" >ouvrier</th>
+                                                <th style="color: rgb(100, 206, 156);font-size: 14px;font-weight: bold;"  class="td-actions text-left" ></th>
+                                                <th style="color: rgb(100, 206, 156);font-size: 14px;font-weight: bold;"  class="td-actions text-left" ></th>
+                                                <th style="color: rgb(100, 206, 156);font-size: 14px;font-weight: bold;"  class="td-actions text-left" >Action</th>
+          
+                                              </tr>
+                                            </thead>
+                                            <tbody >
+                                              <tr *ngFor="let reservation of initial let i = index" >
+                                                <td>{{reservation.service.titre}}</td>
+                                                <td>{{reservation.datedebut}}</td>
+                                                <td>{{reservation.etat}}</td>
+                                                <td>{{reservation.client.username}}</td>
+                                                <td>{{reservation.client.tel}}</td>
+                                                <td> 
+                                                    <select [ngModel]="selectedValue" (change)="onChange(i)" (change)="$event" id="select">
+                                                      <option value="" [selected]=true ></option>
+                                                      <option [value]="ouvrier.id" *ngFor="let ouvrier of ouvriers">{{ouvrier.username}}</option>
+                                                    </select> 
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>
+                                                    <button  type="button" rel="tooltip" name="valider" 
+                                                        class="btn btn-success btn-simple btn-xs" 
+                                                        [disabled] = "reservation.etat === 'finis' || reservation.etat === 'encours' || !buttonDisabled[i]" (click)=set(initial[i].id);onbegin(i) >valider</button>
+                                                </td>
 
-  
-    <div class="container-fluid" >
-        <div class="row">
-<<<<<<< HEAD
-            <div class="col-md-12 ">
-=======
-            <div class="col-sm-12">
->>>>>>> d39c73d9000ca4dd3f2e5b6aa3fb7b95631fa5e1
-                <div class="card">
-                    <div class="header">
-                        <p style="color: cornflowerblue; font-size: 27px;" class="category">Liste de service</p>
-                    </div>
-                    <div class="content">
-                        <div class="table-full-width">
-                            <table class="table table-hover">
-                                    <thead>
-                                      <tr>
-                                        
-                                        <th style="color: rgb(100, 206, 156);font-size: 14px;font-weight: bold;" class="td-actions text-left" >type</th>
-                                        <th style="color: rgb(100, 206, 156);font-size: 14px;font-weight: bold;"  class="td-actions text-left" >date debut</th>
-                                        <th style="color: rgb(100, 206, 156);font-size: 14px;font-weight: bold;" class="td-actions text-left" >etat</th>  
-                                          
-                                        <th style="color: rgb(100, 206, 156);font-size: 14px;font-weight: bold;" class="td-actions text-left" >Nom Du Client</th>
-                                        <th style="color: rgb(100, 206, 156);font-size: 14px;font-weight: bold;"  class="td-actions text-left" >tel</th>
-                                        <th style="color: rgb(100, 206, 156);font-size: 14px;font-weight: bold;"  class="td-actions text-left" ></th>
-                                        <th style="color: rgb(100, 206, 156);font-size: 14px;font-weight: bold;"  class="td-actions text-left" ></th>
-                                        <th style="color: rgb(100, 206, 156);font-size: 14px;font-weight: bold;"  class="td-actions text-left" >ouvrier</th>
-                                        <th style="color: rgb(100, 206, 156);font-size: 14px;font-weight: bold;"  class="td-actions text-left" >Action</th>
-  
-                                      </tr>
-                                    </thead>
-                                    <tbody >
-<<<<<<< HEAD
-                                      <tr *ngFor="let servicees of servicess" >
-                                        <td>{{servicees.titre}}</td>
-                                        <td>{{servicees.description}}</td>
-                                        <td>{{servicees.description}}</td>
-                                        <td>{{servicees.client.username}}</td>
-                                        <td>{{servicees.client.tel}}</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td> 
-                                          
-                                
-                                            <select [ngModel]="selectedValue" (change)="onChange($event)" id="select">
-                                              <option value="" [selected]=true [disabled]=true></option>
-                                              <option [value]="ouvrier.Nom" *ngFor="let ouvrier of ouvriers">{{ouvrier.Nom}}</option>
-                                              <option [value]="ouvrier.id" *ngFor="let ouvrier of ouvriers">{{ouvrier.username}}</option>
-                                            </select> 
-=======
-                                      <tr *ngFor="let service of services ; let i = index" >
-                                        <td> {{service.services.id}}</td>
-                                        <td>{{service.services.titre}}</td>
-                                        <td>{{service.services.date}}</td>
-                                        <td>{{service.services.Etat}}</td>
-                                        <td>{{service.id}}</td>
-                                        <td>{{service.username}}</td>
-                                        <td>{{service.tel}}</td>
-                                        <td> 
-                                          <select [ngModel]="selectedValue" (change)="onChange(i)" id="select">
-                                            <option value="" [selected]=true ></option>
-                                            <option [value]="ouvrier.id" *ngFor="let ouvrier of ouvriers ">{{ouvrier.username}}</option>
-                                          </select> 
->>>>>>> d39c73d9000ca4dd3f2e5b6aa3fb7b95631fa5e1
-                                        </td>
-                                        <td>
-                                            <button  type="button" rel="tooltip" name="valider" 
-                                                class="btn btn-success btn-simple btn-xs" 
-                                                [disabled] = "service.etat_service === 'finis' || service.etat_service === 'encours' || !buttonDisabled[i]" (click)=onbegin(i);set(ouvriers[i].id) >valider</button>
-                                            <button type="button" rel="tooltip" name="terminer" 
-                                                class="btn btn-danger btn-simple btn-xs" 
-                                                [disabled]= "service.etat_service === 'initial' || service.etat_service === 'finis'" (click)=onfinis(i)>terminer</button>
-                                        </td>
-                                      </tr>
-                                    </tbody>
-                                  </table>
+                                              </tr>
+                                            </tbody>
+                                          </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+          </div>
+      </div>
+      <div id="menu1" class="container tab-pane fade"><br>
+        <div class="main-content" > 
+            <div class="container-fluid" >
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <div class="card">
+                            <div class="content">
+                                <div class="table-full-width">
+                                    <table class="table table-hover">
+                                            <thead>
+                                              <tr>                                        
+                                                <th style="color: rgb(100, 206, 156);font-size: 14px;font-weight: bold;" class="td-actions text-left" >type</th>
+                                                <th style="color: rgb(100, 206, 156);font-size: 14px;font-weight: bold;"  class="td-actions text-left" >date debut</th>
+                                                <th style="color: rgb(100, 206, 156);font-size: 14px;font-weight: bold;" class="td-actions text-left" >Etat</th>                          
+                                                <th style="color: rgb(100, 206, 156);font-size: 14px;font-weight: bold;" class="td-actions text-left" >Nom Du Client</th>
+                                                <th style="color: rgb(100, 206, 156);font-size: 14px;font-weight: bold;"  class="td-actions text-left" >tel</th>
+                                                <th style="color: rgb(100, 206, 156);font-size: 14px;font-weight: bold;"  class="td-actions text-left" >ouvrier</th>
+                                                <th style="color: rgb(100, 206, 156);font-size: 14px;font-weight: bold;"  class="td-actions text-left" ></th>
+                                                <th style="color: rgb(100, 206, 156);font-size: 14px;font-weight: bold;"  class="td-actions text-left" ></th>
+                                                <th style="color: rgb(100, 206, 156);font-size: 14px;font-weight: bold;"  class="td-actions text-left" >Action</th>
+          
+                                              </tr>
+                                            </thead>
+                                            <tbody >
+                                              <tr *ngFor="let reservation of encours let i = index" >
+                                                <td>{{reservation.service.titre}}</td>
+                                                <td>{{reservation.datedebut}}</td>
+                                                <td>{{reservation.etat}}</td>
+                                                <td>{{reservation.client.username}}</td>
+                                                <td>{{reservation.client.tel}}</td>
+                                                <td>{{reservation.ouvrier.username}}</td>
+                                                <td></td>
+                                                <td></td>
+                                                                                               
+                                                <td>
+                                                    <button type="button" rel="tooltip" name="terminer" 
+                                                        class="btn btn-danger btn-simple btn-xs" 
+                                                        [disabled]= "reservation.etat === 'initial' || reservation.etat === 'terminer'" (click)=onfinis(encours[i].id);setAvailable(encours[i].ouvrier.id)>terminer</button>
+                                                </td>
+                                              </tr>
+                                            </tbody>
+                                          </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+      </div>
+      <div id="menu2" class="container tab-pane fade"><br>
+        <div class="main-content" > 
+            <div class="container-fluid" >
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <div class="card">
+                            <div class="content">
+                                <div class="table-full-width">
+                                    <table class="table table-hover">
+                                            <thead>
+                                              <tr>                                        
+                                                <th style="color: rgb(100, 206, 156);font-size: 14px;font-weight: bold;" class="td-actions text-left" >type</th>
+                                                <th style="color: rgb(100, 206, 156);font-size: 14px;font-weight: bold;"  class="td-actions text-left" >date debut</th>
+                                                <th style="color: rgb(100, 206, 156);font-size: 14px;font-weight: bold;"  class="td-actions text-left" >date fin</th>
+                                                <th style="color: rgb(100, 206, 156);font-size: 14px;font-weight: bold;" class="td-actions text-left" >etat</th>  
+                                                <th style="color: rgb(100, 206, 156);font-size: 14px;font-weight: bold;" class="td-actions text-left" >Nom Du Client</th>
+                                                <th style="color: rgb(100, 206, 156);font-size: 14px;font-weight: bold;"  class="td-actions text-left" >tel</th>
+                                                <th style="color: rgb(100, 206, 156);font-size: 14px;font-weight: bold;"  class="td-actions text-left" >ouvrier</th>
+          
+                                              </tr>
+                                            </thead>
+                                            <tbody >
+                                              <tr *ngFor="let reservation of terminer let i = index" >
+                                                <td>{{reservation.service.titre}}</td>
+                                                <td>{{reservation.datedebut}}</td>
+                                                <td>{{reservation.datefin}}</td>
+                                                <td>{{reservation.etat}}</td>
+                                                <td>{{reservation.client.username}}</td>
+                                                <td>{{reservation.client.tel}}</td>
+                                                <td>{{reservation.ouvrier.username}}</td>
+                                           
+                                              </tr>
+                                            </tbody>
+                                          </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+      </div>
     </div>
   </div>
+
   

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {ServiceService, Service } from './service.service';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
+import {ServiceService, Services } from './service.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms'
 
 @Component({
   selector: 'app-ajout-service',
@@ -8,51 +8,36 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
   styleUrls: ['./ajout-service.component.scss']
 })
 export class AjoutServiceComponent implements OnInit {
-
-  constructor(private service: ServiceService) { }
   submitted = false;
   success = false;
-  services: Service[];
+  services: Services[];
   messageForm = new FormGroup({
   titre: new FormControl('', [Validators.required]),
-  decription: new FormControl('', [Validators.required]),
-  
-
+  description: new FormControl('', [Validators.required]),
   })
+  constructor(private service: ServiceService) { }
+
 
   ngOnInit() {
   }
   onSubmit() {
-    
     this.submitted = true;
-
     if (this.messageForm.invalid) {
       return;
     }
-
     this.success = true;
-    this.service. addClient(this.messageForm.value).subscribe(
+    this.service.addClient(this.messageForm.value).subscribe(
       data => {
         if (data) {
-
-        }
-
-
-      },
+        }},
       err => {
-        console.log("error sending data")
+        console.log('error sending data')
       },
       () => {
-        alert("Confirmez?")
-        console.log("data sent")
+        alert('Confirmez?')
+        console.log('data sent')
       }
-
-
-
     )
-   
   }
-
-  
 }
 

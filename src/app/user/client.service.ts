@@ -4,8 +4,12 @@ import { HttpClient } from '@angular/common/http';
 
 export class Client {
 
-  constructor(public id: number,
-    public username:string
+  constructor(
+    public id: number,
+    public username: string,
+    public adresse: string,
+    public tel: string,
+    public email: string
   ) { }
 }
 @Injectable({
@@ -15,17 +19,16 @@ export class Client {
 
 export class ClientService {
 
-  constructor(private http: HttpClient) { }
-  Url = 'http://localhost:9000/client/deleteclient';
+Url = 'http://localhost:9000/client/deleteclient';
 
+constructor(private http: HttpClient) { }
   getClient() {
     return this.http.get<Client[]>('http://localhost:9000/client/allclient');
   }
 
   deleteClient(client: Client) {
-    return this.http.delete<Client>(this.Url + "/" + client.id);
+    return this.http.delete<Client>(this.Url + '/' + client.id);
   }
-  
 }
 
 

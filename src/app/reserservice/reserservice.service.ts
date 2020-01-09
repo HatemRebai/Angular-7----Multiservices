@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
+import { Services } from 'app/tables/services.service';
+
 
 export class Ouvrier {
   constructor(
@@ -14,33 +16,58 @@ export class Client {
     public email: String,
     public username: string,
     public tel: string,
-    services: [{
-                  id: number,
-                  titre: string,
-                  date: string,
-                  Etat: string,
-    }],
+    reservations: any,
   ) {}
+}
+export class Reservation {
+  constructor(
+    public id: number,
+    public decription: string,
+    public datedebut: string,
+    public datefin: string,
+    public etat: string,
+    public service: Services,
+    public client: Client,
+    public ouvrier: Ouvrier,
+  ) { }
 }
 @Injectable({
   providedIn: 'root'
 })
-export class ReserserviceService {
+export class ReservationService {
 
-  url1 = 'http://localhost:9000/ouvrier/available';
-  url2 = 'http://localhost:9000/ouvrier/update';
-  url3 = 'http://localhost:9000/client/allclient';
+  url1 = 'http://localhost:9000/reservation/validateReservation';
+  url2 = 'http://localhost:9000/reservation/getinitial';
+  url3 = 'http://localhost:9000/reservation/getencours';
+  url4 = 'http://localhost:9000/reservation/getterminer';
+  url5 = 'http://localhost:9000/reservation/finishReservation';
+  url6 = 'http://localhost:9000/reservation/reserveOuv';
+  url7 = 'http://localhost:9000/ouvrier/update';
+  url8 = 'http://localhost:9000/client/allclient';
 
 
   constructor(private http: HttpClient) { }
 
-  getOuvrier() {
-    return this.http.get<Ouvrier[]>(this.url1);
+  getInitial() {
+    return this.http.get<Reservation[]>(this.url2);
   }
- getClt() {
-  return this.http.get<Client[]>(this.url3);
- }
-  SetAvailable(id: number ) {
-    return this.http.get<Ouvrier>(this.url2 + '/' + id);
+  getencours() {
+    return this.http.get<Reservation[]>(this.url3);
   }
+  getterminer() {
+  return this.http.get<Reservation[]>(this.url4);
+}
+  setEtatReservation(id: number) {
+    return this.http.get<Reservation[]>(this.url1 + '/' + id);
+  }
+  setetatterminer(id: number) {
+  return this.http.get<Reservation[]>(this.url5 + '/' + id);
+}
+affectOuvrier(id: number, idouv: number ) {
+  return this.http.get<Reservation>(this.url6 + '/' + id + '?idouv=' + idouv   )
+
+}
+
+
+
 }

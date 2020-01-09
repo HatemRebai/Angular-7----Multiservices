@@ -14,12 +14,16 @@
               <table class="table table-hover">
                 <thead>
                   <tr>
+                      <th style="color: rgb(100, 206, 156);font-size: 14px;font-weight: bold;"
+                      class="td-actions text-left">Id</th>
                     <th style="color: rgb(100, 206, 156);font-size: 14px;font-weight: bold;"
                       class="td-actions text-left">Nom</th>
                     <th style="color: rgb(100, 206, 156);font-size: 14px;font-weight: bold;"
                       class="td-actions text-left">Adresse</th>
                     <th style="color: rgb(100, 206, 156);font-size: 14px;font-weight: bold;"
                       class="td-actions text-left">Tel</th>
+                      <th style="color: rgb(100, 206, 156);font-size: 14px;font-weight: bold;"
+                      class="td-actions text-left">email</th>
                   
 
 
@@ -27,32 +31,15 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="let client of clients">
-
+                    <td>{{client.id}}</td>
                     <td>{{client.username}}</td>
                     <td>{{client.adresse}}</td>
                     <td>{{client.tel}}</td>
-                   
-
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{{client.email}}</td>
                     <td>
                       <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
                         <i class="fa fa-edit"></i>
-                      </button>
+                      </button>&nbsp;
                       <button type="button" rel="tooltip" title="Remove" (click)="Delete(client)"
                         class="btn btn-danger btn-simple btn-xs">
                         <i class="fa fa-times"></i>

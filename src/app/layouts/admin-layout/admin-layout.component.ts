@@ -60,13 +60,12 @@ export class AdminLayoutComponent implements OnInit {
   ngAfterViewInit() {
       this.runOnRouteChange();
   }
-  isMap(path){
-      var titlee = this.location.prepareExternalUrl(this.location.path());
+  isMap(path) {
+      let titlee = this.location.prepareExternalUrl(this.location.path());
       titlee = titlee.slice( 1 );
-      if(path == titlee){
+      if (path === titlee){
           return false;
-      }
-      else {
+      } else {
           return true;
       }
   }
@@ -84,5 +83,4 @@ export class AdminLayoutComponent implements OnInit {
       }
       return bool;
   }
-
 }

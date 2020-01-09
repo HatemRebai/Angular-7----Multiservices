@@ -13,62 +13,54 @@ export class AjoutOuvrierComponent implements OnInit {
   success = false;
   ouvrier: any;
   ouvriers: Ouvrier[];
-  services:any;
-  servicess:Services[];
+  services: any;
+  servicess: Services[];
+
+
   messageForm = new FormGroup({
   username: new FormControl('', [Validators.required]),
+  email: new FormControl('', [Validators.required]),
   adresse: new FormControl('', [Validators.required]),
   tel: new FormControl('', [Validators.required]),
   typedouvrier: new FormControl('', [Validators.required]),
   services: new FormControl('', [Validators.required]),
 
   })
- 
-  constructor(private service: OuvrierService,private serviceservice: ServicesService) { }
+
+  constructor(private service: OuvrierService, private serviceservice: ServicesService) { }
 
   ngOnInit() {
     this.Submit();
     }
     onSubmit() {
-      
       this.submitted = true;
-  
       if (this.messageForm.invalid) {
         return;
       }
-  
       this.success = true;
       let services = this.messageForm.value.services;
     let niv = this.messageForm.value;
     delete niv['services'];
     console.log(niv);
     console.log(services);
-      this.service. addOuvrier(niv, services).subscribe(
+      this.service.addOuvrier(niv, services).subscribe(
         data => {
           if (data) {
-  
           }
-  
-  
         },
         err => {
-          console.log("error sending data")
+          console.log('error sending data')
         },
         () => {
-          alert("Confirmez?")
-          console.log("data sent")
+          alert('Confirmez?')
+          console.log('data sent')
         }
-  
-  
-  
       )
-     
     }
     Submit() {
       this.serviceservice. getService().subscribe(data => {
         this.servicess = data
       })
     }
-    
 }
 

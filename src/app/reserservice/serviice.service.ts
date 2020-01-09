@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Client } from 'app/user/client.service';
+import { Ouvrier } from 'app/home/ouvrier.service';
 
 
-export class Serviice {
+export class Services {
   constructor(
     public id: number,
-    public  titre:string,
-    public decription:string,
-
+    public  titre: string,
+    public description: string,
+    public ouvrier: Ouvrier,
 
   ) { }
 }
@@ -16,20 +18,15 @@ export class Serviice {
 })
 export class ServiiceService {
 
+  url = 'http://localhost:9000/service/deleteservices';
+
   constructor(private http: HttpClient) { }
-
-
-  Url = 'http://localhost:9000/service/deleteservices';
-
-
   getService() {
-    return this.http.get<Serviice[]>('http://localhost:9000/service/allservice');
+    return this.http.get<Services[]>('http://localhost:9000/service/allservice');
   }
-
-  deleteService(service: Serviice) {
-    return this.http.delete<Serviice[]>(this.Url + "/" + service.id);
+  deleteService(service: Services) {
+    return this.http.delete<Services[]>(this.url + '/' + service.id);
   }
-
 }
 
 

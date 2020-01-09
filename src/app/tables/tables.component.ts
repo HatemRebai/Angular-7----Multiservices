@@ -12,19 +12,15 @@ export class TablesComponent implements OnInit {
     success = false;
     services: any;
     servicess: Services[];
-    
-   
+
    constructor(private servicee: ServicesService) { }
-  
     ngOnInit() {
-    
-  
+
         this.servicee.getService().subscribe(data => {
           this.servicess = data;
         })
-    
       }
-    
+
       Delete(serv) {
         this.servicee.deleteService(serv)
           .subscribe(data => {

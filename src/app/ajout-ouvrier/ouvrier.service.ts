@@ -6,7 +6,6 @@ import { Type } from '@angular/compiler';
 export class Ouvrier {
   constructor(
     public id: number,
-    
     public moyenne: Float32List,
     public Typedouvrier: Type,
 
@@ -19,16 +18,14 @@ export class Ouvrier {
 })
 export class OuvrierService {
 
-  constructor(private http: HttpClient) { }
   Url1 = 'http://localhost:9000/ouvrier/add';
- 
- 
 
-  addOuvrier(ouvrier: Ouvrier, idServices: any) {
-    return this.http.post<Ouvrier>(this.Url1 + "/" + idServices, ouvrier);
+  constructor(private http: HttpClient) { }
+
+  addOuvrier(ouvrier: Ouvrier, id: number) {
+    return this.http.post<Ouvrier>(this.Url1 + '/' + id, ouvrier);
   }
-  
- 
+
 }
 
 

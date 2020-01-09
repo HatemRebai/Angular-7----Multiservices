@@ -1,29 +1,28 @@
 import { Injectable } from '@angular/core';
 import {  HttpClient } from '@angular/common/http';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class Service {
 
-  constructor() { }
+export class Services {
+
+  constructor(
+    public id: number,
+    public titre: string,
+    public description: string
+  ) {}
 }
 @Injectable({
   providedIn: 'root'
 })
 
 
-export class ServiceService{
-
-  constructor(private http: HttpClient) { }
+export class ServiceService {
 
   Url = 'http://localhost:9000/service/add';
   Url3 = 'http://localhost:9000/client/deleteclient';
-  
 
+  constructor(private http: HttpClient) { }
 
-
-  addClient(service: Service) {
-    return this.http.post<Service>(this.Url, service);
+  addClient(service: Services) {
+    return this.http.post<Services[]>(this.Url, service);
   }
 }

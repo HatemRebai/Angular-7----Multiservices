@@ -8,11 +8,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 })
 export class UserComponent implements OnInit {
 
-  
-  constructor(private service: ClientService) { }
- 
-  client: any;
-  clients: Client[];
+   clients: Client[];
   messageForm = new FormGroup({
   username: new FormControl('', [Validators.required]),
   adresse: new FormControl('', [Validators.required]),
@@ -20,23 +16,21 @@ export class UserComponent implements OnInit {
   services: new FormControl('', [Validators.required]),
 
   })
+  constructor(private service: ClientService) { }
 
   ngOnInit() {
-  
-
+    
     this.service.getClient().subscribe(data => {
       this.clients = data
     })
-
   }
- 
 
   Delete(ouvrierr) {
     this.service.deleteClient(ouvrierr)
       .subscribe(data => {
         this.clients = this.clients.filter(p => p !== ouvrierr);
-        alert(" voulez vous supprimer ?");
+        alert(' voulez vous supprimer ?');
       })
-   
+
   }
 }
